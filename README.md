@@ -1,4 +1,4 @@
-# Udacity_Self_Driving_Car-Behavioural_Cloning-P3
+# Udacity_Self_Driving_Car-Behavioural_Cloning(P3)
 
 Project: Behavioural Cloning.
 In this project I have built and trained deep neural network to enable a car to drive itself around the racing track in a driving simulator. The starting model is a convolutional neural network based on the [NVDIA](https://arxiv.org/pdf/1704.07911.pdf) architecture.
