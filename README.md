@@ -23,6 +23,6 @@ The simulator has two tracks, one of which was used to collect the training data
 
 The driving simulator saves images coming from three front-facing (left, central and right) cameras, as well as various driving variables such as steering angle, speed, breaking and throttle. The objective is to predict the steering angle in the range [-1,+1] based on frontal cameras images.
 
-The model is that of ''behavioural cloning'', the deep neural net learns to emulate the behaviour of human drivers by learning the relationship betweeen images coming from the frontal cameras and the steering angle. The model ''learns from data'' by deciding which features of terrain, road markings are important without involvement of human engineers.
+!['Frontal camera image'](images/front_camera_image.png)
 
-![](images/front_camera_image.png)
+The model is that of ''behavioural cloning'', the deep neural net learns to emulate the behaviour of human drivers by learning the relationship betweeen images coming from the frontal cameras and the steering angle. The model ''learns from data'' by deciding which features of terrain, road markings are important without involvement of human engineers.
