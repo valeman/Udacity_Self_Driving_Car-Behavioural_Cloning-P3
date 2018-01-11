@@ -47,35 +47,35 @@ Two versions of the model architectures were examined, one based on variation fr
 
 The LeNet architecture model was (Keras code):
 
-model = Sequential()
-model.add(Lambda(lambda x: (x/255.0) - 0.5, input_shape = (160, 320,3)))
-model.add(Cropping2D(cropping = ((70,25),(0,0))))
-model.add(Convolution2D(6,5,5, activation = 'relu'))
-model.add(MaxPooling2D())
-model.add(Convolution2D(6,5,5, activation = 'relu'))
-model.add(MaxPooling2D())
-model.add(Flatten())
-model.add(Dense(120))
-model.add(Dense(84))
-model.add(Dense(1))
+model = Sequential()<br />
+model.add(Lambda(lambda x: (x/255.0) - 0.5, input_shape = (160, 320,3)))<br /> 
+model.add(Cropping2D(cropping = ((70,25),(0,0))))<br />
+model.add(Convolution2D(6,5,5, activation = 'relu'))<br />
+model.add(MaxPooling2D())<br />
+model.add(Convolution2D(6,5,5, activation = 'relu'))<br />
+model.add(MaxPooling2D())<br />
+model.add(Flatten())<br />
+model.add(Dense(120))<br />
+model.add(Dense(84))<br />
+model.add(Dense(1))<br />
 
 The modified NVDIA architecture was (Keras code):
 
-model = Sequential()
-model.add(Lambda(lambda x: (x/255.0) - 0.5, input_shape = (160, 320,3)))
-model.add(Cropping2D(cropping = ((70,25),(0,0))))
-model.add(Convolution2D(24,5,5, subsample = (2,2), activation = 'relu'))
-model.add(Convolution2D(36,5,5, subsample = (2,2), activation = 'relu'))
-model.add(Convolution2D(48,5,5, subsample = (2,2), activation = 'relu'))
-model.add(Convolution2D(64,3,3, activation = 'relu'))
-model.add(Convolution2D(64,3,3, activation = 'relu'))
-model.add(Flatten())
-model.add(Dense(100, activation='relu'))
-model.add(Dropout(.5))
-model.add(Dense(50, activation='relu'))
-model.add(Dropout(.5))
-model.add(Dense(10, activation='relu'))
-model.add(Dense(1)) 
+model = Sequential()<br />
+model.add(Lambda(lambda x: (x/255.0) - 0.5, input_shape = (160, 320,3)))<br />
+model.add(Cropping2D(cropping = ((70,25),(0,0))))<br />
+model.add(Convolution2D(24,5,5, subsample = (2,2), activation = 'relu'))<br />
+model.add(Convolution2D(36,5,5, subsample = (2,2), activation = 'relu'))<br />
+model.add(Convolution2D(48,5,5, subsample = (2,2), activation = 'relu'))<br />
+model.add(Convolution2D(64,3,3, activation = 'relu'))<br />
+model.add(Convolution2D(64,3,3, activation = 'relu'))<br />
+model.add(Flatten())<br />
+model.add(Dense(100, activation='relu'))<br />
+model.add(Dropout(.5))<br />
+model.add(Dense(50, activation='relu'))<br />
+model.add(Dropout(.5))<br />
+model.add(Dense(10, activation='relu'))<br />
+model.add(Dense(1))<br />
 
 Both architectures used Keras' Lambda layer to allow for effective (parallel) scaling and centering of images for better gradient flowing in the back-propagation for deep learning. In addition images were cropped from above and below to allow deep neural net to focus on the important region of the image, bypassing less relevant details (such as sky, trees etc.).
 
@@ -85,20 +85,20 @@ Both architectures used non-linear ('RELU') activations, to mitigate against ove
 ## The modified NVDIA architecture
 
 
-|      Layer      |               Description                |
-| :-------------: | :-------------------------------------- :|
-|      Input      |        160x320x3 RGB image               |
-|      Lambda     |        Scaling, centering                |
-|      Cropping   |        Cropping from above and below     |
-| Convolution 5x5 |        x24, subsample = (2,2), RELU      |
-| Convolution 5x5 |        x36, subsample = (2,2), RELU      |
-| Convolution 5x5 |        x48, subsample = (2,2), RELU      |
-| Convolution 3x3 |        x64, RELU                         |
-| Convolution 3x3 |        x64, RELU                         |
-|      Flatten    |        outputs 100                       |
-|      Flatten    |        outputs 50                        |
-|      Flatten    |        outputs 10                        |
-|      Flatten    |        outputs 1                         |
+|      Layer      |               Description                |<br />
+| :-------------: | :-------------------------------------- :|<br />
+|      Input      |        160x320x3 RGB image               |<br />
+|      Lambda     |        Scaling, centering                |<br />
+|      Cropping   |        Cropping from above and below     |<br />
+| Convolution 5x5 |        x24, subsample = (2,2), RELU      |<br />
+| Convolution 5x5 |        x36, subsample = (2,2), RELU      |<br />
+| Convolution 5x5 |        x48, subsample = (2,2), RELU      |<br />
+| Convolution 3x3 |        x64, RELU                         |<br />
+| Convolution 3x3 |        x64, RELU                         |<br />
+|      Flatten    |        outputs 100                       |<br />
+|      Flatten    |        outputs 50                        |<br />
+|      Flatten    |        outputs 10                        |<br />
+|      Flatten    |        outputs 1                         |<br />
 
 ## Model Improvement
 
