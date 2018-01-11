@@ -6,7 +6,7 @@ In this project I have built and trained deep neural network to enable a car to 
 
 The project is organised by the following sections:
 * Loading Data
-* Data Preprocessing
+* Data Preprocessing and Augmentation
 * Design and Test Model Architecture
 * Model Improvement
 * Testing and Results
@@ -26,3 +26,13 @@ The driving simulator saves images coming from three front-facing (left, central
 !['Frontal camera image'](images/front_camera_image.png)
 
 The model is that of ''behavioural cloning'', the deep neural net learns to emulate the behaviour of human drivers by learning the relationship betweeen images coming from the frontal cameras and the steering angle. The model ''learns from data'' by deciding which features of terrain, road markings are important without involvement of human engineers.
+
+## Data Preprocessing and Augmentation
+The training data set contained 10,881 images coming from three cameras. Using images from all three front-facing cameras allows to aumgent the training data set, however one has to account for the fact that when using front-left and front-right cameras, the steering angle should be corrected accorginly as follows:
+
+* steering_left = steering_center + correction
+* steering_right = steering_center - correction
+
+
+
+
