@@ -111,8 +111,8 @@ Model was tested iteratively to obtain good driving results after obtaining good
 ## Testing and Results
 
 The manages to drive just well, please see video of autonomouse driving in the project repository. Videos of autonomous driving
- [full view](https://youtu.be/W2oJbqKh9OI)
- [driver's view](https://youtu.be/W2oJbqKh9OI)
+ [full view](https://www.youtube.com/watch?v=W2oJbqKh9OI)
+ [driver's view](https://www.youtube.com/edit?o=U&video_id=Qh6C0bfJ7k4)
 
 
 
