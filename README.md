@@ -87,20 +87,20 @@ Both architectures used non-linear ('RELU') activations, to mitigate against ove
 ## The modified NVDIA architecture
 
 
-|      Layer      |               Description                | 
-| :-------------: | :-------------------------------------- :| 
-|      Input      |        160x320x3 RGB image               | 
-|      Lambda     |        Scaling, centering                | 
-|      Cropping   |        Cropping from above and below     | 
-| Convolution 5x5 |        x24, subsample = (2,2), RELU      | 
-| Convolution 5x5 |        x36, subsample = (2,2), RELU      | 
-| Convolution 5x5 |        x48, subsample = (2,2), RELU      | 
-| Convolution 3x3 |        x64, RELU                         | 
-| Convolution 3x3 |        x64, RELU                         | 
-|      Flatten    |        outputs 100                       | 
-|      Flatten    |        outputs 50                        | 
-|      Flatten    |        outputs 10                        | 
-|      Flatten    |        outputs 1                         | 
+|      Layer      |               Description                                                                                            |
+| :-------------: | :------------------------------------------------------------------------------------------------------------------ :| 
+|      Input      |        160x320x3 RGB image                                                                                           | 
+|      Lambda     |        Scaling, centering                                                                                            | 
+|      Cropping   |        Cropping from above and below                                                                                 | 
+| Convolution 5x5 |        x24, subsample = (2,2), RELU                                                                                  | 
+| Convolution 5x5 |        x36, subsample = (2,2), RELU                                                                                  | 
+| Convolution 5x5 |        x48, subsample = (2,2), RELU                                                                                  | 
+| Convolution 3x3 |        x64, RELU                                                                                                     | 
+| Convolution 3x3 |        x64, RELU                                                                                                     | 
+|      Flatten    |        outputs 100                                                                                                   | 
+|      Flatten    |        outputs 50                                                                                                    | 
+|      Flatten    |        outputs 10                                                                                                    | 
+|      Flatten    |        outputs 1                                                                                                     | 
 
 The models were trained using Adam optimizer, the perfomance was measured using MSE loss on the training and validation sets. Given correct model architecture, the models train well under 5 epochs depending on the architecture. The models using generator train faster than models storing training data in memory.
 
