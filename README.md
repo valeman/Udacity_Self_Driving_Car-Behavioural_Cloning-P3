@@ -12,6 +12,7 @@ The project is organised by the following sections:
 * Testing and Results
 
 ## Project structure
+
 |      File       |               Description                                                                                            |
 |---------------- |----------------------------------------------------------------------------------------------------------------------|
 |   'model.py'    | main script, implements and trains deep neural network for end-to-end autonomous driving.                            |              
