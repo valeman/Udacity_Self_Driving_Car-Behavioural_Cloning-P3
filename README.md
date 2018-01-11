@@ -33,6 +33,8 @@ The training data set contained 10,881 images coming from three cameras. Using i
 * steering_left = steering_center + correction
 * steering_right = steering_center - correction
 
+![''](images/carnd-using-multiple-cameras)
+
 
 
 
