@@ -32,8 +32,75 @@ The training data set contained 10,881 images coming from three cameras. Using i
 
 * steering_left = steering_center + correction
 * steering_right = steering_center - correction
+ 
+Additionally, images and steering measurements were flippep, this allowed to obtain yet more data and to mitigate the efefcts of the left turn bias (as the car was run counter-clockwise).
 
-![](images/carnd-using-multiple-cameras.png)
+The images of of the size 160 x 320 x 3, storing 10,000 such images would take over 1.5Gb memory which with preprocessing (resulting in changing data type from int to float) could take up to 6Gb memory. To address this issue, generator was implemented which allows to pull data (instead of keeping all data in the memory) and process them on the fly when they are needed. This is much more memory efficient and also allows of effective parallel use of CPU and GPUs.
+
+The models (explaned below) were trained with both using and wihtout generator, checking the performance and also time takento train the models.
+
+
+## Design and Test Model Architecture
+
+Two versions of the model architectures were examined, one based on variation from LeCun's [LeNet](http://yann.lecun.com/exdb/lenet/), the other one based on the [NVDIA](https://arxiv.org/pdf/1704.07911.pdf) architecture. Both models were based on the convolutional neural network architecture.
+
+The LeNet architecture model was (Keras code):
+
+model = Sequential()
+model.add(Lambda(lambda x: (x/255.0) - 0.5, input_shape = (160, 320,3)))
+model.add(Cropping2D(cropping = ((70,25),(0,0))))
+model.add(Convolution2D(6,5,5, activation = 'relu'))
+model.add(MaxPooling2D())
+model.add(Convolution2D(6,5,5, activation = 'relu'))
+model.add(MaxPooling2D())
+model.add(Flatten())
+model.add(Dense(120))
+model.add(Dense(84))
+model.add(Dense(1))
+
+The modified NVDIA architecture was (Keras code):
+
+model = Sequential()
+model.add(Lambda(lambda x: (x/255.0) - 0.5, input_shape = (160, 320,3)))
+model.add(Cropping2D(cropping = ((70,25),(0,0))))
+model.add(Convolution2D(24,5,5, subsample = (2,2), activation = 'relu'))
+model.add(Convolution2D(36,5,5, subsample = (2,2), activation = 'relu'))
+model.add(Convolution2D(48,5,5, subsample = (2,2), activation = 'relu'))
+model.add(Convolution2D(64,3,3, activation = 'relu'))
+model.add(Convolution2D(64,3,3, activation = 'relu'))
+model.add(Flatten())
+model.add(Dense(100, activation='relu'))
+model.add(Dropout(.5))
+model.add(Dense(50, activation='relu'))
+model.add(Dropout(.5))
+model.add(Dense(10, activation='relu'))
+model.add(Dense(1)) 
+
+Both architectures used Keras' Lambda layer to allow for effective (parallel) scaling and centering of images for better gradient flowing in the back-propagation for deep learning. In addition images were cropped from above and below to allow deep neural net to focus on the important region of the image, bypassing less relevant details (such as sky, trees etc.).
+
+Both architectures used non-linear ('RELU') activations, to mitigate against overfitting dropout was used - including on the densely connected layers of the modifided NVDIA architecture (NVDIA model was designed for more complicated task of driving in the real scenarios, for simulated driving original NVDIA model could lead to overfittting and droput was used to address this).
+
+
+
+
+
+|      Layer      |               Description                |
+| :-------------: | :--------------------------------------: |
+|      Input      |            32x32x3 RGB image             |
+| Convolution 5x5 | x32,valid padding,outputs 28x28x32       |
+|      RELU       |                                          |
+|   Max pooling   |      2x2 stride,  outputs 14x14x32       |
+| Convolution 5x5 | x64 stride,valid padding,outputs 10x10x16|
+|      RELU       |                                          |
+|   Max pooling   |      2x2 stride,  outputs 5x5x16         |
+| Fully connected |         outputs 120                      |
+|      RELU       |                                          |
+|     dropout     |                                          |
+| Fully connected |         outputs 84                       |
+|      RELU       |                                          |
+|     dropout     |                                          |
+| Fully connected |         outputs # of classes             |
+
 
 
 
