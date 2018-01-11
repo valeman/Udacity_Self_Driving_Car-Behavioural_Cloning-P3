@@ -81,26 +81,31 @@ Both architectures used Keras' Lambda layer to allow for effective (parallel) sc
 Both architectures used non-linear ('RELU') activations, to mitigate against overfitting dropout was used - including on the densely connected layers of the modifided NVDIA architecture (NVDIA model was designed for more complicated task of driving in the real scenarios, for simulated driving original NVDIA model could lead to overfittting and droput was used to address this).
 
 
-
+## The modified NVDIA architecture
 
 
 |      Layer      |               Description                |
-| :-------------: | :--------------------------------------: |
-|      Input      |            32x32x3 RGB image             |
-| Convolution 5x5 | x32,valid padding,outputs 28x28x32       |
-|      RELU       |                                          |
-|   Max pooling   |      2x2 stride,  outputs 14x14x32       |
-| Convolution 5x5 | x64 stride,valid padding,outputs 10x10x16|
-|      RELU       |                                          |
-|   Max pooling   |      2x2 stride,  outputs 5x5x16         |
-| Fully connected |         outputs 120                      |
-|      RELU       |                                          |
-|     dropout     |                                          |
-| Fully connected |         outputs 84                       |
-|      RELU       |                                          |
-|     dropout     |                                          |
-| Fully connected |         outputs # of classes             |
+| :-------------: | :-------------------------------------- :|
+|      Input      |        160x320x3 RGB image               |
+|      Lambda     |        Scaling, centering                |
+|      Cropping   |        Cropping from above and below     |
+| Convolution 5x5 |        x24, subsample = (2,2), RELU      |
+| Convolution 5x5 |        x36, subsample = (2,2), RELU      |
+| Convolution 5x5 |        x48, subsample = (2,2), RELU      |
+| Convolution 3x3 |        x64, RELU                         |
+| Convolution 3x3 |        x64, RELU                         |
+|      Flatten    |        outputs 100                       |
+|      Flatten    |        outputs 50                        |
+|      Flatten    |        outputs 10                        |
+|      Flatten    |        outputs 1                         |
 
+## Model Improvement
+
+Model was tested iteratively to obtain good driving results.
+
+## Testing and Results
+
+The manages to drive just well, please see video of autonomouse driving in the project repository.
 
 
 
